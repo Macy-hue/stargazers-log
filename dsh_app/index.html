@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>拾光拼贴 MOMENTO · iPhone 17 Pro Max 拼贴壁纸</title>
+  <meta name="description" content="从 iPhone 相册选择 4–5 张照片，用四种拼贴风格生成一张 iPhone 17 Pro Max 壁纸。照片只在本机处理，不上传。">
+  <meta name="theme-color" content="#f1e8d9">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="拾光拼贴">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-grain" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="./" aria-label="拾光拼贴首页">
+      <span class="brand-mark" aria-hidden="true"><span>M</span></span>
+      <span class="brand-text">
+        <strong>拾光拼贴</strong>
+        <em>MOMENTO</em>
+      </span>
+    </a>
+    <div class="header-right">
+      <span class="header-spec">iPhone 17 Pro Max <i></i> 1320 × 2868</span>
+      <button class="privacy-pill" id="privacyBtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 5.4 6v5.3c0 4.2 2.8 7.7 6.6 9.1 3.8-1.4 6.6-4.9 6.6-9.1V6L12 3.2Z"/><path d="m9.4 11.8 1.8 1.8 3.6-3.7"/></svg>
+        仅本机处理
+      </button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <div class="studio">
+      <section class="preview-column" aria-label="壁纸预览">
+        <div class="stage">
+          <div class="stage-top">
+            <span class="live-label"><i></i> LIVE PREVIEW</span>
+            <span class="stage-mode" id="stageMode">空版式</span>
+          </div>
+
+          <div class="phone-wrap">
+            <div class="phone" id="phone">
+              <span class="phone-button phone-button-a" aria-hidden="true"></span>
+              <span class="phone-button phone-button-b" aria-hidden="true"></span>
+              <span class="phone-button phone-button-c" aria-hidden="true"></span>
+              <div class="phone-screen">
+                <canvas id="wallpaperCanvas" width="1320" height="2868" aria-label="拼贴壁纸实时预览"></canvas>
+                <div class="lockscreen" id="lockscreen" aria-hidden="true">
+                  <div class="lock-date" id="lockDate">10月26日 星期一</div>
+                  <div class="lock-time">9:41</div>
+                  <div class="lock-bottom">
+                    <span class="lock-orb"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3Z"/></svg></span>
+                    <span class="lock-orb"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4V8Z"/><circle cx="12" cy="13" r="3.2"/></svg></span>
+                  </div>
+                </div>
+                <div class="screen-shine" aria-hidden="true"></div>
+                <div class="dynamic-island" aria-hidden="true"></div>
+
+                <div class="canvas-empty" id="canvasEmpty">
+                  <span class="empty-num">4–5</span>
+                  <strong>把照片放进来</strong>
+                  <span>从相册挑选几个瞬间</span>
+                  <button class="empty-cta" id="emptyCta" type="button">选择照片 <span>↗</span></button>
+                </div>
+
+                <div class="rendering-veil" id="renderingVeil" hidden>
+                  <span class="spinner" aria-hidden="true"></span>
+                  <strong>正在冲洗照片…</strong>
+                  <small>一切都留在你的设备上</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stage-bottom">
+            <span class="stage-caption" id="stageCaption">选好照片后，这里会实时生成拼贴。</span>
+            <div class="stage-actions">
+              <button class="stage-btn" id="fullscreenBtn" type="button" aria-label="全屏预览">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5"/></svg>
+                放大
+              </button>
+              <button class="stage-btn" id="reshuffleBtn" type="button" aria-label="换一种排布">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l10 10h4M17 13l4 4-4 4M3 17h4l3-3M17 3l4 4-4 4"/></svg>
+                换排布
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-foot">
+          <span class="preview-foot-note">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 5.4 6v5.3c0 4.2 2.8 7.7 6.6 9.1 3.8-1.4 6.6-4.9 6.6-9.1V6L12 3.2Z"/></svg>
+            预览里的时间只是锁屏示意，不会印在壁纸上
+          </span>
+          <button class="text-link" id="demoBtn" type="button">载入示例</button>
+        </div>
+      </section>
+
+      <section class="hero">
+        <div class="eyebrow"><span>01—04</span> A COLLAGE FOR YOUR LOCK SCREEN</div>
+        <h1>把零散的瞬间，<br><em>贴</em>成一张壁纸。</h1>
+        <p class="hero-lede">从 iPhone 相册里挑 4–5 张照片，让和纸胶带、票根与手写字，替你留住一段时光。</p>
+        <div class="hero-meta">
+          <span>iPhone 17 Pro Max</span>
+          <span>4–5 张照片</span>
+          <span>JPG · 原生分辨率</span>
+        </div>
+      </section>
+
+      <section class="editor" aria-label="拼贴编辑器">
+        <div class="editor-card">
+          <section class="panel-section photo-section" id="photoSection">
+            <div class="section-head">
+              <div class="section-title"><span class="step">01</span><h2>放入照片</h2></div>
+              <span class="photo-count" id="photoCount">0 / 5</span>
+            </div>
+            <p class="section-lede">从 iPhone 相册挑选 4–5 张，横竖都可以，我们会自动裁切。</p>
+
+            <div class="photo-strip" id="photoStrip" aria-live="polite"></div>
+
+            <div class="photo-actions">
+              <button class="btn btn-primary" id="importBtn" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5h4l1.6-2.2h4.8L16 7.5h4V19H4V7.5Z"/><circle cx="12" cy="13" r="3.4"/></svg>
+                <span id="importBtnLabel">从相册选择</span>
+              </button>
+              <button class="icon-btn" id="shufflePhotosBtn" type="button" hidden title="打乱照片顺序" aria-label="打乱照片顺序">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4l10 10h4M17 13l4 4-4 4M3 17h4l3-3M17 3l4 4-4 4"/></svg>
+              </button>
+              <button class="text-button" id="clearBtn" type="button" hidden>清空</button>
+            </div>
+
+            <p class="privacy-line">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 5.4 6v5.3c0 4.2 2.8 7.7 6.6 9.1 3.8-1.4 6.6-4.9 6.6-9.1V6L12 3.2Z"/><path d="m9.4 11.8 1.8 1.8 3.6-3.7"/></svg>
+              照片只在本机处理，不上传、不需要注册
+            </p>
+
+            <div class="demo-note" id="demoNote" hidden>正在使用示例照片。选择你的照片，即可全部替换。</div>
+            <div class="need-note" id="needNote">还需 4 张照片，就能生成第一张壁纸。</div>
+          </section>
+
+          <section class="panel-section style-section">
+            <div class="section-head">
+              <div class="section-title"><span class="step">02</span><h2>选一种风格</h2></div>
+              <span class="section-side">STYLE</span>
+            </div>
+            <div class="style-grid" id="styleGrid"></div>
+            <div class="style-detail">
+              <div class="style-chips" id="styleChips"></div>
+              <p class="style-desc" id="styleDesc"></p>
+              <button class="text-link" id="promptBtn" type="button">查看 AI 提示词 <span>↗</span></button>
+            </div>
+          </section>
+
+          <section class="panel-section layout-section">
+            <div class="section-head">
+              <div class="section-title"><span class="step">03</span><h2>安排版式</h2></div>
+              <span class="section-side">LAYOUT</span>
+            </div>
+            <div class="layout-row" id="layoutRow" role="group" aria-label="拼贴版式"></div>
+            <label class="desktop-size" for="desktopSize"><strong>输出尺寸</strong><select id="desktopSize"><option value="phone">手机壁纸 · 1320 × 2868</option><option value="1080p">电脑壁纸 · 1920 × 1080</option><option value="1440p">电脑壁纸 · 2560 × 1440</option><option value="4k">电脑壁纸 · 3840 × 2160</option></select></label>
+
+            <div class="setting-row">
+              <div class="setting-copy">
+                <strong>锁屏安全区</strong>
+                <small>自动避开顶部时间与底部按钮</small>
+              </div>
+              <button class="switch" id="safeToggle" type="button" role="switch" aria-checked="true" aria-label="锁屏安全区">
+                <span></span>
+              </button>
+            </div>
+          </section>
+
+          <section class="panel-section note-section">
+            <div class="section-head">
+              <div class="section-title"><span class="step">04</span><h2>留一句话</h2></div>
+              <span class="section-side">A NOTE</span>
+            </div>
+            <label class="note-field" for="noteInput">
+              <input id="noteInput" type="text" maxlength="24" autocomplete="off" spellcheck="false" placeholder="写一句想留在纸上的话">
+              <span class="note-count" id="noteCount">0 / 24</span>
+            </label>
+            <p class="field-hint">会写进拼贴里的便签。留空则使用该风格的默认句子。</p>
+          </section>
+
+          <section class="export-section">
+            <div class="export-head">
+              <div>
+                <span class="export-kicker">FINAL PRINT</span>
+                <h2>准备好，变成壁纸</h2>
+              </div>
+              <span class="export-badge">1320 × 2868</span>
+            </div>
+            <button class="btn btn-save" id="saveBtn" type="button" disabled>
+              <span>还需 4 张照片</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 20h14"/></svg>
+            </button>
+            <p class="export-meta" id="exportMeta">高清 JPG · 适配 iPhone 17 Pro Max 锁屏与主屏</p>
+            <p class="export-hint" id="saveHint">选满 4 张后即可保存。iPhone 可直接存进相册。</p>
+          </section>
+        </div>
+
+        <p class="editor-foot">
+          <button class="text-link" id="howToBtn" type="button">怎么保存到 iPhone？</button>
+          <span>·</span>
+          <span>本地渲染，无需网络</span>
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <div class="mobile-dock" id="mobileDock" hidden>
+    <div class="dock-copy">
+      <strong id="dockTitle">你的拼贴</strong>
+      <span id="dockMeta">1320 × 2868 · JPG</span>
+    </div>
+    <button class="btn btn-save btn-dock" id="dockSaveBtn" type="button" disabled>还需 4 张</button>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <span class="brand-mark small" aria-hidden="true"><span>M</span></span>
+      <span>拾光拼贴 <em>MOMENTO</em></span>
+    </div>
+    <p>为 iPhone 17 Pro Max 设计 · 所有照片仅停留在这台设备上</p>
+    <p class="footer-note">这不是一个相册云端服务。刷新页面后照片会自动清空。</p>
+  </footer>
+
+  <!-- consent / privacy -->
+  <dialog class="modal consent-modal" id="consentDialog" aria-labelledby="consentTitle">
+    <button class="modal-close" type="button" data-close="consentDialog" aria-label="关闭">×</button>
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2 5.4 6v5.3c0 4.2 2.8 7.7 6.6 9.1 3.8-1.4 6.6-4.9 6.6-9.1V6L12 3.2Z"/><path d="m9.4 11.8 1.8 1.8 3.6-3.7"/></svg>
+    </div>
+    <span class="modal-kicker">BEFORE WE BEGIN</span>
+    <h2 id="consentTitle">你的照片，<br>只留在这台设备上。</h2>
+    <p class="modal-lede">点击「同意并选择」后，会打开 iOS 的相册选择器。请选择 4–5 张照片。浏览器无法自行读取整个相册，这是 iOS 的隐私限制，也是我们喜欢它的原因。</p>
+    <div class="consent-points">
+      <div><span>01</span><p><strong>只在本地处理</strong><small>拼贴与导出都在这台设备的浏览器里完成。</small></p></div>
+      <div><span>02</span><p><strong>没有服务器，没有上传</strong><small>我们看不到、也不会保存你的任何一张照片。</small></p></div>
+      <div><span>03</span><p><strong>随时可以离开</strong><small>刷新页面，照片就从内存里消失。仅保留风格偏好。</small></p></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" id="consentAccept" type="button">同意并选择照片</button>
+      <button class="text-link" id="consentDemo" type="button">先看看示例</button>
+    </div>
+    <p class="modal-fineprint">继续即表示你同意在本机处理所选照片。照片不会离开你的设备。</p>
+  </dialog>
+
+  <!-- prompt -->
+  <dialog class="modal prompt-modal" id="promptDialog" aria-labelledby="promptTitle">
+    <button class="modal-close" type="button" data-close="promptDialog" aria-label="关闭">×</button>
+    <span class="modal-kicker">AI ART DIRECTION</span>
+    <h2 id="promptTitle">四款风格的提示词</h2>
+    <p class="modal-lede">这些提示词定义了每款拼贴的纸张、胶带与手绘细节。你也可以复制它们，在 Midjourney、GPT Image 等工具里继续创作。</p>
+    <div class="prompt-tabs" id="promptTabs" role="tablist" aria-label="选择风格提示词"></div>
+    <div class="prompt-panel">
+      <div class="prompt-panel-head">
+        <strong id="promptStyleName">日系拼贴</strong>
+        <span id="promptStyleEn">Japanese Junk Journal</span>
+      </div>
+      <p id="promptText"></p>
+      <button class="btn btn-secondary" id="copyPromptBtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="11" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2"/></svg>
+        复制这段提示词
+      </button>
+    </div>
+  </dialog>
+
+  <!-- preview / save -->
+  <dialog class="modal preview-modal" id="previewDialog" aria-labelledby="previewTitle">
+    <button class="modal-close light" type="button" data-close="previewDialog" aria-label="关闭">×</button>
+    <span class="modal-kicker light" id="previewKicker">FINAL PRINT</span>
+    <h2 class="light" id="previewTitle">你的拼贴壁纸</h2>
+    <div class="preview-image-wrap">
+      <img id="previewImage" alt="生成的拼贴壁纸预览">
+    </div>
+    <p class="preview-tip" id="previewTip">长按图片，选择「存储到照片」即可保存到 iPhone 相册。</p>
+    <div class="preview-actions">
+      <a class="btn btn-primary" id="downloadLink" download="momento-wallpaper.jpg">下载 JPG</a>
+      <button class="btn btn-ghost-light" type="button" data-close="previewDialog">返回编辑</button>
+    </div>
+    <p class="preview-fine">1320 × 2868 px · 适用于 iPhone 17 Pro Max</p>
+  </dialog>
+
+  <dialog class="modal help-modal" id="helpDialog" aria-labelledby="helpTitle">
+    <button class="modal-close" type="button" data-close="helpDialog" aria-label="关闭">×</button>
+    <span class="modal-kicker">TO YOUR PHONE</span>
+    <h2 id="helpTitle">怎么保存到 iPhone？</h2>
+    <ol class="help-list">
+      <li><span>01</span><p><strong>点「保存壁纸」</strong><small>在 iPhone 上会优先打开系统分享面板。</small></p></li>
+      <li><span>02</span><p><strong>选择「存储图像」</strong><small>壁纸就会出现在「照片」App 里。</small></p></li>
+      <li><span>03</span><p><strong>设为墙纸</strong><small>打开照片 → 分享 → 用作墙纸，建议关闭「透视缩放」。</small></p></li>
+    </ol>
+    <p class="modal-fineprint">如果分享面板没有出现，点「全屏预览」后长按图片，也能存储到照片。所有处理都在本机完成。</p>
+  </dialog>
+
+  <input id="photoInput" type="file" accept="image/*" multiple hidden>
+  <input id="replaceInput" type="file" accept="image/*" hidden>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/presets.js"></script>
+  <script src="js/art.js"></script>
+  <script src="js/art-decor.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
